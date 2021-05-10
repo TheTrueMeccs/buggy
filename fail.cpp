@@ -1,34 +1,46 @@
 #include <iostream>
-int Static[5];
-int memcheckFailDemo(int* arrayStack, unsigned int arrayStackLen, 
-	int* arrayHeap, unsigned int arrayHeapLen) {
-  int Stack[5];
+#include <vector>
 
-  Static[100] = 0; 
-  Stack[100] = 0; 
+std::vector<int> Static(5);
 
-  for (int i = 0; i <= 5; i++) Stack [i] = 0;
+int memcheckFailDemo(std::vector<int> arrayStack, std::vector<int> arrayHeap) {
+    std::vector<int> Stack(5);
 
-  int* array = new int[5];
-  array[100] = 0; 
+    Static.at(100) = 0;
+    Stack.at(100) = 0;
 
-  arrayStack[100] = 0; 
-  arrayHeap[100] = 0; 
+    for (int i = 0; i <= 5; i++)
+    {
+        Stack.at(i) = 0;
+    }
 
-  for (unsigned int i = 0; i <= arrayStackLen; i++) {
-      arrayStack[i] = 0;
-  }
-  for (unsigned int i = 0; i <= arrayHeapLen; i++) {
-      arrayHeap[i] = 0;
-  }
+    std::vector<int> array(5);
+    array.at(100) = 0;
 
-  return 0;
+    arrayStack.at(100) = 0;
+    arrayHeap.at(100) = 0;
+
+    for (unsigned int i = 0; i <= arrayStack.size(); i++) {
+        arrayStack.at(i) = 0;
+    }
+    for (unsigned int i = 0; i <= arrayStack.size(); i++) {
+        arrayHeap.at(i) = 0;
+    }
+    
+    return 0;
 }
 
-int main(void) {
-  int arrayStack[5];
-  int* arrayHeap = new int[5];
-  memcheckFailDemo(arrayStack, 5, arrayHeap, 5);
-  return 0;
-}
+int main() {
+    std::vector<int> arrayStack(5);
+    std::vector<int> arrayHeap(5);
+    try
+    {
+        memcheckFailDemo(arrayStack, arrayHeap);
+    }
+    catch(std::out_of_range&)
+    {
+        return -1;
+    }
 
+    return 0;
+}
